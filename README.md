@@ -1,5 +1,7 @@
 # mkreport
 
+See library for parsing user input that i made for this project: https://github.com/gskorokhod/ask-py
+
 A script to generate markdown CS report templates
 
 - Is it overkill? yes.
