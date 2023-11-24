@@ -5,6 +5,8 @@ A script to generate markdown CS report templates
 - Is it overkill? yes.
 - Have I procrastinated writing an actual report by writing this? *mayhaps*.
 
+![Screenshot from 2023-11-24 20-31-44](https://github.com/gskorokhod/mkreport/assets/64529579/07d8ddeb-c0e5-41da-8d4c-dae80666306a)
+
 
 ## Installing
 
