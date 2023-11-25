@@ -70,5 +70,7 @@ if __name__ == '__main__':
 
         if should_use_git:
             subprocess.run(['git', 'init'], cwd=fpath)
+            subprocess.run(['git', 'add', './*'], cwd=fpath)
+            subprocess.run(['git', 'commit', '-m', 'Initial commit'], cwd=fpath)
 
         print(f"Report template set up at {fpath}")
