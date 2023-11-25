@@ -9,6 +9,10 @@ A script to generate markdown CS report templates
 
 ![Screenshot from 2023-11-24 20-31-44](https://github.com/gskorokhod/mkreport/assets/64529579/07d8ddeb-c0e5-41da-8d4c-dae80666306a)
 
+## Dependencies
+
+- Pandoc needs to be installed: see [pandoc.org](https://pandoc.org/installing.html)
+- LATEX needs to be installed on your system, along with fonts etc
 
 ## Installing
 
