@@ -28,9 +28,12 @@ def to_snake_case(s: str) -> str:
     return s.lower()
 
 
-def make_metadata_line(key, value):
+def make_metadata_line(key, value, is_quarto=False):
     if isinstance(value, datetime):
-        value = format_date(value)
+        if is_quarto: # Quarto handles dates for us, just pass the timestamp
+            value = date.strftime("YYYY-MM-DDTHH:mm:ssZ")
+        else:
+            value = format_date(value)
     return f'{key}: {value}\n'
 
 
@@ -41,6 +44,8 @@ def update_report_metadata(file_path, metadata):
     :param file_path: Path to the Markdown file.
     :param metadata: Dictionary containing the metadata to update or add.
     """
+    is_quarto = file_path.endswith('.qmd')
+
     with open(file_path, 'r+') as file:
         lines = file.readlines()
         file.seek(0)
@@ -53,7 +58,7 @@ def update_report_metadata(file_path, metadata):
                     # Exiting the metadata block, add any additional metadata from ans
                     for key, value in metadata.items():
                         if key not in metadata_keys_written:
-                            file.write(make_metadata_line(key, value))
+                            file.write(make_metadata_line(key, value, is_quarto=is_quarto))
                     in_block = False
                 else:
                     # Entering the metadata block
@@ -66,7 +71,7 @@ def update_report_metadata(file_path, metadata):
                 found_key = None
                 for key, value in metadata.items():
                     if line.startswith(f'{key}:'):
-                        line = make_metadata_line(key, value)
+                        line = make_metadata_line(key, value, is_quarto=is_quarto)
                         found_key = key
                         break
                 if found_key:
