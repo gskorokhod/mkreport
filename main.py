@@ -52,21 +52,27 @@ if __name__ == '__main__':
     if fpath.exists():
         print(f"The directory {fpath} already exists. Exiting.")
     else:
+        report_dir_name = ''
+        report_file_name = ''
+        
         with tempfile.TemporaryDirectory() as temp_dir:
             temp_dir_path = Path(temp_dir)
 
             subprocess.run(['git', 'clone', REPORT_TEMPLATE_REPO, temp_dir_path])
 
             if typesetting == 'quarto':
-                path = temp_dir_path / 'quarto-report'
-                shutil.copytree(path, fpath, dirs_exist_ok=True)
+                report_dir_name = 'quarto-report'
+                report_file_name = 'report.qmd'
             elif typesetting == 'markdown':
-                path = temp_dir_path / 'report'
-                shutil.copytree(path, fpath, dirs_exist_ok=True)
+                report_dir_name = 'report'
+                report_file_name = 'report.md'
             else:
                 print(f'Unknown typesetting system {typesetting}!')
 
-        update_report_metadata(fpath / 'report.md', ans)
+            path = temp_dir_path / report_dir_name
+            shutil.copytree(path, fpath, dirs_exist_ok=True)
+
+        update_report_metadata(fpath / report_file_name, ans)
 
         if should_use_git:
             subprocess.run(['git', 'init'], cwd=fpath)
